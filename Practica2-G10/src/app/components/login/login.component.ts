@@ -26,11 +26,12 @@ export class LoginComponent implements OnInit {
     }else{
       this.auth.Login(this.email,this.password).subscribe((res) => {
         if (res['msg']) {
+          alert("TRUE");
           userLogged = 'login_valid';
           this.email="";
           this.password="";
         } else {
-          
+          alert("FALSE");
            userLogged = 'login_invalid';
            this.email="";
            this.password="";

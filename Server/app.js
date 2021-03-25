@@ -4,8 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const cors = require('cors');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+const validaciones = require('../Server/validaciones.js');
 
 var app = express();
 app.use(express.json());
@@ -26,20 +30,27 @@ app.use('/users', usersRouter);
 
 // petitions
 
+app.use(cors());
 // POST method route
-app.post('/Login', function (request, response) {
+app.post('/login', function (request, response) {
 
   //var objectValue = request.body["hola"];
   //console.log(objectValue);
   console.log(request.body);      // your JSON
-  response.send(request.body);    // echo the result back
-
+  if(validaciones.ValidarUsuario(request.body)){
+    var obj = { msg: true };
+    response.send(JSON.stringify(obj));
+  }
+  var obj = { msg: false };
+  response.send(JSON.stringify(obj));
 })
 
 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log('error');
+  console.log(req);
   next(createError(404));
 });
 
