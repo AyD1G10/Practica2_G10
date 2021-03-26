@@ -1,43 +1,19 @@
-var createError = require('http-errors');
+
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
 const cors = require('cors');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-const validaciones = require('../Server/validaciones.js');
-
 var app = express();
 app.use(express.json());
-
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// petitions
-
 app.use(cors());
+
 // POST method route
 app.post('/login', function (request, response) {
-
   //var objectValue = request.body["hola"];
   //console.log(objectValue);
-  console.log(request.body);      // your JSON
-  if(validaciones.ValidarUsuario(request.body)){
+  if (!request || !response) {
+    var obj = { msg: false };
+    response.send(JSON.stringify(obj));
+  }
+  if (ValidarUsuario(request.body[USUARIO_CORREO], request.body[USUARIO_CONTRASENA])) {
     var obj = { msg: true };
     response.send(JSON.stringify(obj));
   }
@@ -47,22 +23,56 @@ app.post('/login', function (request, response) {
 
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  console.log('error');
-  console.log(req);
-  next(createError(404));
-});
+function TieneMinuscula(password) {
+  return (/.*[a-z].*/.test(password));
+}
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+function TieneMayuscula(password) {
+  return (/.*[A-Z].*/.test(password));
+}
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+function TieneNumero(password) {
+  return (/.*[0-9].*/.test(password));
+}
 
-module.exports = app;
+function EsVacio(password) {
+  if (password.length === 0) {
+    return true;
+  }
+  return false;
+}
+
+function TamañoCorrecto(password) {
+  if (password.length > 5) {
+    return true;
+  }
+  return false;
+}
+
+var list = [
+  { user: 'davidtortola_@hotmail.com', pass: 'Admin1' },
+  { user: 'chichicaste22@gmail.com', pass: 'Admin1' }
+];
+
+function UsuarioCorrecto(user, pass) {
+  for (let index = 0; index < list.length; ++index) {
+    let value = list[index];
+    console.log(index, value);
+    if (user === list[index].user && pass === list[index].pass) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function ValidarUsuario(user, pass) {
+  if (EsVacio(pass)) { return false; }
+  if (!TamañoCorrecto(pass)) { return false; }
+  if (!TieneNumero(pass)) { return false; }
+  if (!TieneMayuscula(pass)) { return false; }
+  if (!TieneMinuscula(pass)) { return false; }
+  if (!UsuarioCorrecto(user, pass)) { return false; }
+  return true;
+}
+
+module.exports = app, TieneMinuscula, TieneMayuscula, UsuarioCorrecto, TieneNumero, EsVacio, TamañoCorrecto, ValidarUsuario;
