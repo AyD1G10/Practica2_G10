@@ -26,4 +26,15 @@ export class UserService {
       , { headers: this.headers })
       .pipe(map(data => data));
   }
+
+  consultarVehiculo(placa:string) {
+    const url = "http://localhost:3000/consultarVehiculo";
+
+    return this.http.post(url,
+      {
+        "placa":placa
+      }
+      , { headers: this.headers })
+      .pipe(map(data => data));
+  }
 }
