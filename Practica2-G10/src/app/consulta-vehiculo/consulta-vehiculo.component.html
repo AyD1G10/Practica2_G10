@@ -1,0 +1,56 @@
+<p>consulta-vehiculo works!</p>
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+
+    <div class="container justify-content-center">
+        <a class="navbar-brand" href="#">
+            <img src="https://cdn.svgporn.com/logos/gusto.svg" width="30" height="30" alt="">
+        </a>
+    </div>
+</nav>
+
+
+
+<div class="container mt-5">
+    <div class="row mt-5 justify-content-center">
+
+        <div class="col-6">
+            
+            <h2> Consulta de Vehiculo</h2>
+           
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Placa</label>
+                    <input  name="username"  [(ngModel)]="no_placa" placeholder="placa" type="text" class="form-control"
+                        id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                
+
+                <button  type="submit"  (click)="consulta()" class="btn btn-outline-primary btn-block">Consultar</button>
+               
+            </form>
+        </div>
+
+
+    </div>
+    <br>
+    <div id ="tabla"> 
+        <table class="table">
+            <thead>
+              <tr>
+                <th *ngFor ="let head of header" scope="col">{{head}}</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let el of elements_table">
+                    <th scope="row">{{el.placa}}</th>
+                    <td>{{el.id_user}}</td>
+                    <td>{{el.Estado}}</td>
+                    <td>{{el.descripcion}}</td>
+                    <td>{{el.fecha_servicio}}</td>
+                    <td>{{el.fecha_salida}}</td>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
