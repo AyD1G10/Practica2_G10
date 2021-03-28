@@ -26,4 +26,20 @@ export class UserService {
       , { headers: this.headers })
       .pipe(map(data => data));
   }
+
+  registrarVehiculo(idusuario: string, placa: string, modelo: string, marca: string, linea : string){
+    const url = "http://localhost:3000/registrarVehiculo";
+
+    return this.http.post(url,
+      {
+        "id_user":idusuario,
+        "placa":placa,
+        "modelo" : modelo,
+        "marca" : marca,
+        "linea" : linea
+      }
+      , { headers: this.headers })
+      .pipe(map(data => data));
+  }
+
 }
