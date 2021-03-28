@@ -6,6 +6,8 @@ let cons_vehiculo = require('./consultaVehiculo.js');
 const { json } = require('express');
 
 
+let v_Vehiculo = require('./validacionesVehiculo');
+
 var app = express();
 app.use(express.json());
 app.use(cors());
@@ -17,7 +19,7 @@ app.post('/Login', function (request, response) {
   }
   console.log(request.body);
   if (v.ValidarUsuario(request.body['USUARIO_CORREO'], request.body['USUARIO_CONTRASENA'])) {
-    return response.send(JSON.stringify({ msg: false }));
+    return response.send(JSON.stringify({ msg: true }));
   }
   return response.send(JSON.stringify({ msg: false }));
 })
@@ -33,5 +35,22 @@ app.post("/consultarVehiculo", function(request, response) {
     return response.send(JSON.stringify([]));
   }
 });
+
+app.post('/registrarVehiculo', function (req, res) {
+  const {id_user, placa, modelo, marca, linea}= req.body;
+  console.log(id_user);
+  if(!v_Vehiculo.getVheichulo(placa)){
+    console.log('no existe placa...');
+    if(v_Vehiculo.setVehiculo(id_user, placa, modelo, marca, linea)){
+      return res.send(JSON.stringify({ msg: true }));
+    }else{
+      return res.send(JSON.stringify({ msg: false }));
+    }
+    
+  }else{
+    return  res.send(JSON.stringify({ msg: "placa" }));
+  }
+
+})
 
 module.exports = app;

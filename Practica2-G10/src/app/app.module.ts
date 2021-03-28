@@ -7,6 +7,8 @@ import { LoginComponent } from './components/login/login.component';
 
 import { FormsModule } from '@angular/forms';
 import {  HttpClientModule  } from '@angular/common/http';
+import { RegistroVehiculoComponent } from './registro-vehiculo/registro-vehiculo.component';
+import {  HttpClientModule  } from '@angular/common/http';
 import { ConsultaVehiculoComponent } from './consulta-vehiculo/consulta-vehiculo.component';
 
 @NgModule({
@@ -14,6 +16,7 @@ import { ConsultaVehiculoComponent } from './consulta-vehiculo/consulta-vehiculo
     AppComponent,
     LoginComponent,
     ConsultaVehiculoComponent
+    RegistroVehiculoComponent
   ],
   imports: [
     BrowserModule,
