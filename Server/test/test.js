@@ -9,15 +9,6 @@ const app = require('../app.js');
 const v = require('../validaciones.js');
 const { json } = require("express");
 
-// ejemplo
-describe('Array', function () {
-  describe('#indexOf()', function () {
-    it('should return -1 when the value is not present', function () {
-      assert.equal([1, 2, 3].indexOf(4), -1);
-    });
-  });
-});
-
 describe('Metodo', function () {
   describe('TieneMinuscula()', function () {
     it('debe retornar true cuando la cadena tenga una minuscula', function () {
@@ -114,57 +105,18 @@ describe('Mock', function () {
   });
 });
 
-
-
-
-
-function LlamadaPostLogin(fn) {
-  var returnValue,
-    called = false;
-  return function () {
-    if (!called) {
-      called = true;
-      var obj = { msg: true };
-      returnValue = JSON.stringify(obj);
-    }
-    return returnValue;
-  };
-}
-
 describe('Mock', function () {
-  describe('LlamadaPostLogin()', function () {
-    it("llama la peticion post", function () {
-      var callback = sinon.fake();
-      var proxy = LlamadaPostLogin(callback);
-      proxy();
-      var obj = { msg: true };
-      assert.equal(callback.called, false);
-    });
-  });
-});
-
-
-function once(fn) {
-  var returnValue,
-    called = false;
-  return function () {
-    if (!called) {
-      called = true;
-      returnValue = fn.apply(this, arguments);
-    }
-    return returnValue;
-  };
-}
-
-describe('Mock', function () {
-  describe('Sinon()', function () {
-    it("calls the original function", function () {
-      var callback = sinon.fake();
-      var proxy = once(callback);
-
-      proxy();
-
-      assert(callback.called);
+  describe('/Login', function () {
+    it('debe retornar un json con true/false si el usuario y contraseña son correctos', (done) => {
+      var obj = null;
+      chai.request(url)
+        .post('/Login')
+        .send(obj)
+        .end(function (err, res) {
+          //console.log(res)
+          expect(res).to.have.status(500);
+          done();
+        });
     });
   });
 });
