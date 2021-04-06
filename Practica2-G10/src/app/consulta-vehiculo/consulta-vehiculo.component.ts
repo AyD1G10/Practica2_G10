@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 export class ConsultaVehiculoComponent implements OnInit {
   public no_placa: string =""
   
-  constructor(public service: UserService) { }
+  constructor(public services: UserService) { }
 
   elements : Object[];
   elements_table: Object[] =[];
@@ -22,19 +22,21 @@ export class ConsultaVehiculoComponent implements OnInit {
   consulta(){
     if(this.no_placa ===""){
       alert("debe ingresar una placa para consultar")
+      return false;
     }else{
-      this.service.consultarVehiculo(this.no_placa).subscribe((res)=>{
+      this.services.consultarVehiculo(this.no_placa).subscribe((res)=>{
+        alert("entro aqui")
         let response = JSON.stringify(res);
         let json_response = JSON.parse(response)
-        console.log(json_response.data.length)
-
-        
+        //console.log(json_response.data)
+        alert(json_response.data.length)
         if(json_response.data.length > 0){ //crear tabla
           this.elements = json_response.data;
           this.elements_table = this.elements.slice();
-
-        }
+          return true;
+        }else{ return false}
       });
     }
+    return true;
   }
 }

@@ -28,7 +28,10 @@ app.post("/consultarVehiculo", function(request, response) {
   let json_placa = request.body
   let placa = json_placa.placa
   if(placa !=""){
-    return response.send(JSON.stringify(cons_vehiculo.getVheichulo(placa)))
+    console.log("consulta vehiculo placa: "+placa);
+    respuesta = JSON.stringify(cons_vehiculo.getVheichulo(placa));
+    //console.log(respuesta);
+    return response.send(respuesta);
   }else{
     return response.send(JSON.stringify([]));
   }

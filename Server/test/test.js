@@ -7,6 +7,7 @@ chai.use(chaiHttp);
 
 const app = require('../app.js');
 const v = require('../validaciones.js');
+const cons_v = require('../consultaVehiculo.js')
 const { json } = require("express");
 
 // ejemplo
@@ -14,6 +15,62 @@ describe('Array', function () {
   describe('#indexOf()', function () {
     it('should return -1 when the value is not present', function () {
       assert.equal([1, 2, 3].indexOf(4), -1);
+    });
+  });
+});
+
+//pruebas unitarias servicio de vehiculos
+describe('Metodo', function () {
+  describe('getVheichulo()', function () {
+    it('Retorna un json con la informacion del vehiculo', function () {
+      assert.notEqual(cons_v.getVheichulo('p355bgw').data.length,0);
+      assert.equal(cons_v.getVheichulo('gfs5w').data.length,0);
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('getData()', function () {
+    it('Retorna los datos en el archivo database, si este existe', function () {
+      assert.notEqual(cons_v.getData('./database.json'),null);
+      assert.equal(cons_v.getData('./archivo_erroneo.json'),null);
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('agregarVehiculo()', function () {
+    it('Debe retornar true si hace la insercion del vehiculo en la base de datos', function () {
+      assert.equal(cons_v.agregarVehiculo("p554dtr","1","0","ingresado a servicio","27/03/2021","---",'./database.json'),true);
+      assert.equal(cons_v.agregarVehiculo("p554dtr","1","0","ingresado a servicio","27/03/2021","---",''),false);
+      //eliminar el dato agregado 
+      cons_v.ElininarVechiculo("p554dtr",'./database.json')
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('ElininarVechiculo()', function () {
+    it('Debe retornar true si hace la eliminacion del vehiculo en la base de datos de vehiculos en servicio', function () {
+      //agregar dato para eliminarlo sin afectar la bd
+      cons_v.agregarVehiculo("p554dtr","1","0","ingresado a servicio","27/03/2021","---",'./database.json');
+      
+      assert.equal(cons_v.ElininarVechiculo("p554dtr",'./database.json'),true);
+      assert.equal(cons_v.ElininarVechiculo("null",'./database.json'),false);
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('EscribirDatabase()', function () {
+    it('Debe retornar true si puede escribir en la base de datos', function () {
+      //obteer datos 
+      datos = cons_v.getData('./database.json');
+      let info_json = JSON.parse(datos);
+      let nuevojson = JSON.stringify(info_json, null, 2);
+      //prueba 
+      assert.equal(cons_v.EscribirDatabase(nuevojson,'./database.json'),true);
+      assert.equal(cons_v.EscribirDatabase(nuevojson,''),false);
     });
   });
 });
@@ -165,6 +222,60 @@ describe('Mock', function () {
       proxy();
 
       assert(callback.called);
+    });
+  });
+});
+
+//mock josue
+describe('Mock', function () {
+  describe('/consultarVehiculo', function () {
+    it('debe retornar un json con la informacion del veiculo que se desea buscar', (done) => {
+      var obj = {
+        "placa":"p355bgw"
+      };
+      var objeto = {
+        placa: 'p355bgw',
+        id_user: '2',
+        Estado: '0',
+        descripcion: 'en espera de piezas para cambio de filtros',
+        fecha_servicio: '15/03/2021',
+        fecha_salida: ''
+      }
+      before(() => {
+        chaiHttp(url)
+        .post('/consultarVehiculo')
+        .reply(200, objeto);
+      });
+      chai.request(url)
+        .post('/consultarVehiculo')
+        .send(obj)
+        .end(function (err, res) {
+          //expect(res.status).to.equal(200);
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+  });
+});
+
+describe('Mock', function () {
+  describe('/consultarVehiculo', function () {
+    it('retorna un json sin elementos', (done) => {
+      var obj = null;
+      var objeto = {data:[]};
+      before(() => {
+        chaiHttp(url)
+        .post('/consultarVehiculo')
+        .reply(200, objeto);
+      });
+      chai.request(url)
+        .post('/consultarVehiculo')
+        .send(obj)
+        .end(function (err, res) {
+          //expect(res.status).to.equal(200);
+          expect(res).to.have.status(200);
+          done();
+        });
     });
   });
 });
