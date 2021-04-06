@@ -69,4 +69,27 @@ describe('UserService', () => {
     })
 
   });
+
+  
+  //
+  it('debera devolver true si realiza la consulta y crea la tabla', () => {
+    const userDataFromServer = {
+      data:[
+        {placa:"p355bgw",
+        id_user:"2",
+        Estado:"0",
+        descripcion:"en espera de piezas para cambio de filtros",
+        fecha_servicio:"15/03/2021",
+        fecha_salida:""}
+      ]};
+  
+    httpClientMock.post.and.returnValue(of(userDataFromServer));
+    
+    const services = {
+      placa: 'p355bgw'
+    };
+    service.consultarVehiculo(services.placa).subscribe(result => {
+      expect(result).toEqual(userDataFromServer);
+    });
+  });
 });
