@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs')
+
 
 let v = require('../Server/validaciones.js');
+const utils = require('./utils')
 let cons_vehiculo = require('./consultaVehiculo.js');
 const { json } = require('express');
 
@@ -54,6 +57,18 @@ app.post('/registrarVehiculo', function (req, res) {
     return  res.send(JSON.stringify({ msg: false }));
   }
   
+})
+
+app.post('/registro',(req,res) => {
+  const registroData = req.body;
+  fs.readFile('./database.json',function(err,data){
+    if(!err) {
+      let databaseFile = JSON.parse(data.toString());
+      res.send(utils.saveUser(registroData,databaseFile));
+    } else {
+      res.send({msg:"error en la base de datos", code:0})
+    }
+  })
 })
 
 module.exports = app;

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from  "./components/login/login.component";
 import { ConsultaVehiculoComponent } from './consulta-vehiculo/consulta-vehiculo.component';
 import { RegistroVehiculoComponent } from './registro-vehiculo/registro-vehiculo.component'
+import { RegistroComponent } from "./components/registro/registro.component";
+import { RegistroadminComponent } from "./components/registroadmin/registroadmin.component";
 
 const routes: Routes = [
   {
@@ -18,6 +20,14 @@ const routes: Routes = [
   {
     path: 'registroVehiculo',
     component: RegistroVehiculoComponent
+  },
+  {
+    path:'registro',
+    component:RegistroComponent
+  },
+  {
+    path:'registroadmin',
+    component:RegistroadminComponent
   }
 ];
 

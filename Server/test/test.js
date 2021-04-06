@@ -10,6 +10,7 @@ const app = require('../app.js');
 const v = require('../validaciones.js');
 const { json } = require("express");
 const v_Vehiculo = require('../validacionesVehiculo');
+const utils = require('../utils');
 
 describe('Metodo', function () {
   describe('TieneMinuscula()', function () {
@@ -77,6 +78,75 @@ describe('Metodo', function () {
     });
   });
 });
+
+
+
+describe('Metodo',function (){
+  describe('generateId()', function () {
+    it('Genera el id de un registro',function () {
+      const databaseFile = {"database":[{"table":"usuarios","data":[{"user":"example@example","password":"1234","tipo":0,"id":1}]},{"table":"vehiculos","data":[]},{"table":"vehiculos_enServicio","data":[]}]}
+      assert.equal(utils.generateId(databaseFile),2);
+    });
+  });
+});
+
+describe('Metodo',function (){
+  describe('existsUser()', function () {
+    it('Verifica si existe el usuario',function () {
+      const databaseFile = {"database":[{"table":"usuarios","data":[{"user":"example@example","password":"1234","tipo":0,"id":1}]},{"table":"vehiculos","data":[]},{"table":"vehiculos_enServicio","data":[]}]}
+      const registrData = {"user":"example@example","password":"1234","tipo":0}
+      assert.equal(utils.existsUser(databaseFile,registrData).length,1);
+    });
+  });
+});
+
+describe('Metodo',function (){
+  describe('saveRecordToDb()', function () {
+    it('Guarda un registro en la base de datos',function () {
+      const databaseFile = {"database":[{"table":"usuarios","data":[]},{"table":"vehiculos","data":[]},{"table":"vehiculos_enServicio","data":[]}]}
+      const registrData = {"user":"example@example","password":"1234","tipo":0,"id":1}
+      assert.equal(utils.saveRecordToDb(databaseFile,registrData),true)
+    });
+  });
+});
+
+describe('Metodo',function (){
+  describe('numberOfUsers()', function () {
+    it('Obtiene el numero de usuario en la base de datos',function () {
+      const databaseFile = {"database":[{"table":"usuarios","data":[]},{"table":"vehiculos","data":[]},{"table":"vehiculos_enServicio","data":[]}]}
+      assert.equal(utils.numberOfUsers(databaseFile),0)
+    });
+  });
+});
+
+describe('Mock',function (){
+  describe('saveUser()', function () {
+    it('Guarda el usuario',function () {
+      const databaseFile = {"database":[{"table":"usuarios","data":[]},{"table":"vehiculos","data":[]},{"table":"vehiculos_enServicio","data":[]}]}
+      const registrData = {"user":"example@example","password":"1234","tipo":0,"id":1}
+      assert.equal(utils.saveUser(registrData,databaseFile).code,1)
+    });
+  });
+});
+
+describe('Mock', function() {
+  describe('/registro',function() {
+    it('Debe retornar un json si los datos son validos',(done) => {
+      var obj = {"user":"example@example","password":"1234","tipo":0};
+      chai.request('http://localhost:3000')
+        .post('/registro')
+        .send(obj)
+        .end(function (err, res) {
+          //console.log(res)
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+});
+
+
+
 
 describe('Mock', function () {
   describe('PeticionPost()', function () {

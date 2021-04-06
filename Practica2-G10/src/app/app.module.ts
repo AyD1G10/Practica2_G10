@@ -8,8 +8,9 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import {  HttpClientModule  } from '@angular/common/http';
 import { RegistroVehiculoComponent } from './registro-vehiculo/registro-vehiculo.component';
-//import {  HttpClientModule  } from '@angular/common/http';
 import { ConsultaVehiculoComponent } from './consulta-vehiculo/consulta-vehiculo.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { RegistroadminComponent } from './components/registroadmin/registroadmin.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import { ConsultaVehiculoComponent } from './consulta-vehiculo/consulta-vehiculo
     LoginComponent,
     ConsultaVehiculoComponent,
     RegistroVehiculoComponent
+    RegistroComponent,
+    RegistroadminComponent
   ],
   imports: [
     BrowserModule,
