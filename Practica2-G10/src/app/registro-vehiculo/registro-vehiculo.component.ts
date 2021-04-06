@@ -23,29 +23,40 @@ export class RegistroVehiculoComponent implements OnInit {
 
 
   registrarVehiculo(){
-    
+    let resp = "";
     if(this.idusuario != "" && this.placa != "" && this.linea != "" && this.marca != "" && this.modelo != ""){
-      this.service.registrarVehiculo(this.idusuario,this.placa, this.modelo, this.marca, this.linea)
+      this.service.RegistrarVehiculo(this.idusuario,this.placa, this.modelo, this.marca, this.linea)
       .subscribe((res)=>{
         console.log(res);
-        if (res['msg'] == true) {
-          alert('Vehiculo agregado exitosamente.')
-        }else if(res['msg'] == "placa"){
-          alert('El No. de placa ya se encuentra registrado.')
-        }else{
-          alert('Se produjo un error, favor de verificar datos. ')
-        }
         this.idusuario = "";
         this.placa = "";
         this.linea = "";
         this.marca = "";
         this.modelo = "";
+        
+        if (res['msg'] == true) {
+          alert('Vehiculo agregado exitosamente.')
+          resp = 'Vehiculo agregado exitosamente.'
+          return resp;
+        }else if(res['msg'] == "placa"){
+          alert('El No. de placa ya se encuentra registrado.')
+          resp = 'El No. de placa ya se encuentra registrado.'
+          return resp;
+        }else{
+          alert('Se produjo un error, favor de verificar datos.')
+          resp = 'Se produjo un error, favor de verificar datos.'
+          return resp;
+        }
+        
 
       })
 
     }else{
       alert('Se produjo un error, favor de verificar datos. ')
+      resp = 'Se produjo un error, favor de verificar datos.';
+      return resp;
     }
-
+  
+    return resp;
   }
 }
