@@ -314,11 +314,20 @@ describe('Metodo', function () {
   });
 });
 
+describe('Metodo', function () {
+  describe('Validaciones()', function () {
+    it('debe retornar true si los datos de placa son correctos', function () {
+      assert.equal(v_Vehiculo.getVheichulo('PDEG152'), true);
+      assert.equal(v_Vehiculo.Validaciones('PBRR1233'), false);
+    });
+  });
+});
+
 // mocks
 
 describe('Mock', function () {
   describe('/registrarVehiculo', function () {
-    it('debe retornar un json con true/false si se inserta en la base', (done) => {
+    it('debe retornar un json con true/false si se inserta en la base t', (done) => {
       var obj = { "id_user": "02", "placa": "PDEG153", "modelo": "2010", "marca": "toyota", "linea": "corrolla" };
       chai.request(url)
         .post('/registrarVehiculo')

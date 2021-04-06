@@ -1,18 +1,13 @@
 {
   "database": [
     {
-      "table": "nombre",
+      "table": "usuarios",
       "data": [
         {
-          "id": "1",
-          "user": "user132",
-          "pass": "sadfdsf21",
-          "tipo": "cliente"
-        },
-        {
-          "id": "1",
-          "user": "usuario2",
-          "pass": "1234"
+          "user": "example@example",
+          "password": "1234",
+          "tipo": 0,
+          "id": 1
         }
       ]
     },
@@ -21,13 +16,6 @@
       "data": [
         {
           "id_user": "01",
-          "placa": "PDEG152",
-          "modelo": "2005",
-          "marca": "toyota",
-          "linea": "corrolla"
-        },
-        {
-          "id_user": "01",
           "placa": "CDEG152",
           "modelo": "2006",
           "marca": "toyota",
@@ -37,73 +25,21 @@
           "id_user": "01",
           "placa": "PDEG152",
           "modelo": "2006",
-          "linea": "corrolla"
           "marca": "toyota",
+          "linea": "corrolla"
         },
         {
           "id_user": "02",
-          "modelo": "2010",
           "placa": "PDEG153",
-          "marca": "toyota",
-        {
-        },
-          "linea": "corrolla"
-          "id_user": "01",
-          "placa": "CDEG152",
-          "modelo": "2006",
+          "modelo": "2010",
           "marca": "toyota",
           "linea": "corrolla"
-        },
-          "id_user": "01",
-        {
-          "placa": "PDEG152",
-          "modelo": "2006",
-          "marca": "toyota",
-          "linea": "corrolla"
-        },
-        {
-          "id_user": "01",
-          "placa": "CDEG152",
-          "modelo": "2006",
-          "marca": "toyota",
-          "linea": "corrolla"
-          "id_user": "01",
-        },
-        {
-      ]
         }
-          "linea": "corrolla"
-          "modelo": "1990",
-          "marca": "toyota",
-          "placa": "PBCA384",
-          "id_user": "01",
-        {
-        },
-          "linea": "corrolla"
-          "marca": "toyota",
-          "placa": "PDEG152",
-          "modelo": "2006",
+      ]
     },
     {
       "table": "vehiculos_enServicio",
-      "data": [
-        {
-          "placa": "p152deg",
-          "id_user": "01",
-          "Estado": "1",
-          "descripcion": "se realizo servicio de rutina por los 1000 km",
-          "fecha_servicio": "15/03/2021",
-          "fecha_salida": "20/03/2021"
-        },
-        {
-          "placa": "p355bgw",
-          "id_user": "2",
-          "Estado": "0",
-          "descripcion": "en espera de piezas para cambio de filtros",
-          "fecha_servicio": "15/03/2021",
-        }
-          "fecha_salida": ""
-      ]
+      "data": []
     }
   ]
 }

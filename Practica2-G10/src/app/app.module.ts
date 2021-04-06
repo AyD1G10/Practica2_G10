@@ -17,7 +17,7 @@ import { RegistroadminComponent } from './components/registroadmin/registroadmin
     AppComponent,
     LoginComponent,
     ConsultaVehiculoComponent,
-    RegistroVehiculoComponent
+    RegistroVehiculoComponent,
     RegistroComponent,
     RegistroadminComponent
   ],
