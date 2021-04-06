@@ -38,6 +38,9 @@ app.post("/consultarVehiculo", function(request, response) {
 
 app.post('/registrarVehiculo', function (req, res) {
   const {id_user, placa, modelo, marca, linea}= req.body;
+  if (!req || !res) {
+    response.send(JSON.stringify({ msg: false }));
+  }
   console.log(id_user);
   if(!v_Vehiculo.getVheichulo(placa)){
     console.log('no existe placa...');
@@ -48,9 +51,9 @@ app.post('/registrarVehiculo', function (req, res) {
     }
     
   }else{
-    return  res.send(JSON.stringify({ msg: "placa" }));
+    return  res.send(JSON.stringify({ msg: false }));
   }
-
+  
 })
 
 module.exports = app;

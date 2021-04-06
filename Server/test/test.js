@@ -4,10 +4,12 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 chai.use(chaiHttp);
+const fs = require('fs')
 
 const app = require('../app.js');
 const v = require('../validaciones.js');
 const { json } = require("express");
+const v_Vehiculo = require('../validacionesVehiculo');
 
 describe('Metodo', function () {
   describe('TieneMinuscula()', function () {
@@ -115,6 +117,104 @@ describe('Mock', function () {
         .end(function (err, res) {
           //console.log(res)
           expect(res).to.have.status(500);
+          done();
+        });
+    });
+  });
+});
+
+//Test registro vehiculos ------------------------------------------------
+
+describe('Metodo', function () {
+  describe('AnioValido()', function () {
+    it('debe retornar true cuando el anio este entre 1950 a 2022', function () {
+      assert.equal(v_Vehiculo.AnioValido('2005'), true);
+      assert.equal(v_Vehiculo.AnioValido('2023'), false);
+      assert.equal(v_Vehiculo.AnioValido('1965'), true);
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('placaValida()', function () {
+    it('debe retornar true cuando el formato de la placa sea valido', function () {
+      assert.equal(v_Vehiculo.placaValida('PBBB001'), true);
+      assert.equal(v_Vehiculo.placaValida('P123BRR'), false);
+      assert.equal(v_Vehiculo.placaValida('TRCDEF876'), true);
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('getVheichulo()', function () {
+    it('debe retornar true cuando encuentre el numero de placa en la tabla vehiculos', function () {
+      assert.equal(v_Vehiculo.placaValida('PDEG152'), true);
+      assert.equal(v_Vehiculo.placaValida('P123BRR'), false);
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('setVehiculo()', function () {
+    it('debe retornar true si los datos del objeto json a insertar son validos', function () {
+
+      assert.equal(v_Vehiculo.setVehiculo('01','CDEG152','2006','toyota','corrolla'), true);
+      assert.equal(v_Vehiculo.setVehiculo('01','PDEG152','2006','toyota','corrolla'), true);
+      
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('EscribirDatabase()', function () {
+    it('debe retornar true si se escribe en el archivo.', function () {
+
+      var json = JSON.parse(fs.readFileSync('./database.json'));
+      let nuevojson = JSON.stringify(json, null, 2);
+
+      assert.equal(v_Vehiculo.EscribirDatabase(nuevojson), true);
+      
+    });
+  });
+});
+
+describe('Metodo', function () {
+  describe('Validaciones()', function () {
+    it('debe retornar true si los datos de placa y anio estan correctos ', function () {
+      assert.equal(v_Vehiculo.Validaciones('PDEG152','2006'), true);
+      assert.equal(v_Vehiculo.Validaciones('PBRR123','1920'), false);
+    });
+  });
+});
+
+// mocks
+
+describe('Mock', function () {
+  describe('/registrarVehiculo', function () {
+    it('debe retornar un json con true/false si se inserta en la base', (done) => {
+      var obj = { "id_user": "02", "placa": "PDEG153", "modelo": "2010", "marca": "toyota", "linea": "corrolla" };
+      chai.request(url)
+        .post('/registrarVehiculo')
+        .send(obj)
+        .end(function (err, res) {
+          //console.log(res)
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+});
+
+describe('Mock', function () {
+  describe('/registrarVehiculo', function () {
+    it('debe retornar un json con true/false si se inserta en la base', (done) => {
+      var obj = null;
+      chai.request(url)
+        .post('/registrarVehiculo')
+        .send(obj)
+        .end(function (err, res) {
+          console.log(res)
+          expect(res).to.have.status(200);
           done();
         });
     });

@@ -44,5 +44,29 @@ describe('UserService', () => {
     service.Login(authData.email, authData.password).subscribe(result => {
       expect(result).toEqual(userDataFromServer);
     });
+
+  
+  });
+
+  it('should returns an Observable with registro status and set the user using http post response', () => {
+    
+    const userDataFromServer2 = {
+      msg:true
+    };
+
+    const registro = {
+      "id_user": '03',
+      "placa": 'PDEG152',
+      "modelo" : '2006',
+      "marca" : 'toyota',
+      "linea" : 'corrolla'
+    }
+    httpClientMock.post.and.returnValue(of(userDataFromServer2));
+
+    service.RegistrarVehiculo(registro.id_user, registro.placa, registro.modelo, registro.marca, registro.linea)
+    .subscribe(result => {
+      expect(result).toEqual(userDataFromServer2);
+    })
+
   });
 });

@@ -1,59 +1,117 @@
-{"database":[
+{
+  "database": [
     {
-        "table":"nombre",
-        "data":[
-            {
-                "id":"1",
-                "user":"user132",
-                "pass":"sadfdsf21",
-                "tipo":"cliente"
-            },
-            {
-                "id":"1",
-                "user":"usuario2",
-                "pass":"1234"
-            }
-        ]
+      "table": "nombre",
+      "data": [
+        {
+          "id": "1",
+          "user": "user132",
+          "pass": "sadfdsf21",
+          "tipo": "cliente"
+        },
+        {
+          "id": "1",
+          "user": "usuario2",
+          "pass": "1234"
+        }
+      ]
     },
     {
-        "table":"vehiculos",
-        "data":[
-            {
-                "id_user":"01",
-                "placa":"p152deg",
-                "modelo":"2005",
-                "marca":"toyota",
-                "linea":"corrolla"
-            }
-        ]
+      "table": "vehiculos",
+      "data": [
+        {
+          "id_user": "01",
+          "placa": "PDEG152",
+          "modelo": "2005",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "01",
+          "placa": "CDEG152",
+          "modelo": "2006",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "01",
+          "placa": "PDEG152",
+          "modelo": "2006",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "02",
+          "placa": "PDEG153",
+          "modelo": "2010",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "01",
+          "placa": "CDEG152",
+          "modelo": "2006",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "01",
+          "placa": "PDEG152",
+          "modelo": "2006",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "01",
+          "placa": "CDEG152",
+          "modelo": "2006",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "01",
+          "placa": "PDEG152",
+          "modelo": "2006",
+          "marca": "toyota",
+          "linea": "corrolla"
+        },
+        {
+          "id_user": "01",
+          "placa": "PBCA384",
+          "modelo": "1990",
+          "marca": "toyota",
+          "linea": "corrolla"
+        }
+      ]
     },
     {
-        "table":"vehiculos_enServicio",
-        "data":[
-            {
-                "placa":"p152deg",
-                "id_user":"01",
-                "Estado":"1",
-                "descripcion":"se realizo servicio de rutina por los 1000 km",
-                "fecha_servicio": "15/03/2021",
-                "fecha_salida": "20/03/2021"
-            },
-            {
-                "placa":"p355bgw",
-                "id_user":"2",
-                "Estado":"0",
-                "descripcion":"en espera de piezas para cambio de filtros",
-                "fecha_servicio": "15/03/2021",
-                "fecha_salida": ""
-            },
-            {
-                "placa":"p355bgw",
-                "id_user":"2",
-                "Estado":"1",
-                "descripcion":"en espera de piezas para cambio de filtros",
-                "fecha_servicio": "25/03/2020",
-                "fecha_salida": "27/03/2020"
-            }
-        ]
+      "table": "vehiculos_enServicio",
+      "data": [
+        {
+          "placa": "p152deg",
+          "id_user": "01",
+          "Estado": "1",
+          "descripcion": "se realizo servicio de rutina por los 1000 km",
+          "fecha_servicio": "15/03/2021",
+          "fecha_salida": "20/03/2021"
+        },
+        {
+          "placa": "p355bgw",
+          "id_user": "2",
+          "Estado": "0",
+          "descripcion": "en espera de piezas para cambio de filtros",
+          "fecha_servicio": "15/03/2021",
+          "fecha_salida": ""
+        },
+        {
+          "placa": "p355bgw",
+          "id_user": "2",
+          "Estado": "1",
+          "descripcion": "en espera de piezas para cambio de filtros",
+          "fecha_servicio": "25/03/2020",
+          "fecha_salida": "27/03/2020"
+        }
+      ]
     }
-]}
+  ]
+}
