@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-registroadmin',
@@ -10,7 +11,7 @@ export class RegistroadminComponent implements OnInit {
   public password:string = "";
   public usertype:string = "";
 
-  constructor() { }
+  constructor(public services: UserService) { }
 
   ngOnInit(): void {
   }
@@ -27,7 +28,8 @@ export class RegistroadminComponent implements OnInit {
       this.password = "";
       this.usertype = "";
       console.log(jsonFile)
-      this.guardarUsuario(jsonFile)
+      this.services.guardarUsuario(jsonFile)
+      return true;
     } else {
       return "Rellenar todos los campos"
     }
@@ -42,6 +44,6 @@ export class RegistroadminComponent implements OnInit {
       },
       body: JSON.stringify(jsonFile),
     })
-    .then(res => console.log(res))
+    .then(res => res)
   }
 }
